@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        #conteiner {
+
+        }
+    </style>
+</head>
+<body>
+    {{!-- <div class="container" class="flex">
+        {{>sidebar}}
+        <div id="content" class="w-2/4 bg-gray-200">
+            container
+        </div>
+    </div> --}}
+    <div class="container flex">
+        <div class="w-1/5">
+            {{>sidebar}}
+        </div>
+        <div class="w-80 px-5 py-8">
+            container
+        </div>
+    </div>
+</body>
+</html>

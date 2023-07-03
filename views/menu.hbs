@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+
+        .productImageCover {
+            position: relative;
+        }
+        .productImageCover span  {
+            background-color: red;
+            color: white;
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 30px;
+            border: 2px solid black;
+            padding-left: 0px;
+            padding-top: 0px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: grid;
+            align-items: center;
+            justify-items: center;
+        }
+
+        #productDialog {
+           position: fixed;
+           z-index: 100;
+           top : 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           transform: translateX(100%);
+           transition: 0.3s ease-in-out;
+           background-color: white;
+        }
+
+        #productHead {
+
+        }
+
+        #productHead img {
+            height: 45vh;
+        }
+
+        #productDialogContent {
+            position: relative;
+            height: 100vh;
+            background-color: whitesmoke;
+        }
+
+        #productDialogFooter {
+            position: absolute;
+            bottom:  5%;
+            right: 0;
+            left: 0;
+            padding: 0.5rem;
+        }
+
+        #productDialogFooter button {
+            background-color: green;
+            width: 100%;
+        }
+
+        #navigation {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            font-size: 1.5rem;
+        }
+
+        #checkout {
+            text-align: center;
+        }
+
+        #checkout{
+            opacity: 0.3;
+            display: block;
+            width: 100%;
+        }
+
+        .activatedAnchorTag{
+            opacity: 1;
+            background-color: green;
+            color: whitesmoke;
+        }
+
+        #openWhatsapp {
+            visibility: hidden;
+        }
+        
+    </style>
+</head>
+<body class="p-2">
+    <div>
+        <h1>
+            LEVANT
+        </h1>
+        <P><b>Welcome , Stranger</b></P>
+        <p class="pb-2">We have some recommendations for you</p>
+        <div class="content grid grid-cols-2 gap-2">
+            <div class="product">
+                <div class="productImageCover">
+                    <span class="popProduct">+</span>
+                    <img src="https://i.imgur.com/cqzgC5l.jpg" alt="food" class="w-full h-48 object-cover">
+                </div>
+                <div class="productDetails">
+                    <h3>Product Name</h3>
+                    <p class="text-gray-700 font-semibold">Tzs 9000</p>
+                </div>
+            </div>
+            <div class="product">
+                <div class="productImageCover">
+                    <span class="popProduct">+</span>
+                    <img src="https://i.imgur.com/z4VCc8E.jpg" alt="food" class="w-full h-48 object-cover">
+                </div>
+                <div class="productDetails">
+                    <h3>Product Name 2</h3>
+                    <p class="text-gray-700 font-semibold">Tzs 12000</p>
+                </div>
+           </div>
+        </div>
+        <div id="navigation" class="p-2">
+               <div class="navigationCover grid grid-cols-3">
+                     <div>menu</div>
+                    <div>cart</div>
+                    <button id="checkout" class="disabledAnchorTag" href='whatsapp://send?phone=+15550575696'>checkout</button>
+                    <a id="openWhatsapp" href="#">open whatsapp</a>
+               </div>
+        </div>
+    </div>
+    <!----------------->
+
+    <div id="productDialog">
+        <div id="productDialogContent" class="p-2">
+            <div id="productHead">
+                <img src="https://i.imgur.com/cqzgC5l.jpg" class="w-full object-cover">
+            </div>
+            <div id="productDialogFooter" class="grid grid-cols-2 gap-2">
+                <div>
+                    <button id="dropDialog" class="p-4">cancel</button>
+                </div>
+                <div>
+                    <button id="addProduct" class="p-4">add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        let productSelected = {}
+        let cart = []
+        let addButton = document.querySelectorAll('.popProduct')
+        let addProduct = document.querySelector('#addProduct')
+        let dropDialog = document.querySelector('#dropDialog')
+        let checkout = document.querySelector('#checkout')
+        let getUserId = document.documentURI.split('/')
+        let userId = getUserId[getUserId.length - 1]
+        let mobileId
+        
+        console.log(addButton)
+  
+        addButton.forEach(function (theAddButton) {
+            theAddButton.addEventListener('click', function () {
+
+                productSelected["productName"] = this.parentElement.parentElement.children[1].children[0].innerText
+                productSelected["productPrice"] = this.parentElement.parentElement.children[1].children[1].innerText
+                console.log(productSelected)
+                //getproduct selected details
+                document.querySelector('#productDialog').style.transform = `translateX(0%)`
+            })
+        })
+
+        dropDialog.addEventListener('click', function () {
+                document.querySelector('#productDialog').style.transform = `translateX(100%)`
+        })
+
+        addProduct.addEventListener('click', async function (e) {
+
+           
+
+            //disable the buttons cancel and add
+            dropDialog.disabled = true
+            this.disabled = true
+            this.textContent = '..adding..'
+            let request = await fetch('/menu/addtocart', {
+                method : 'post',
+                headers : {"content-type" : "application/json"},
+                body : JSON.stringify({
+                    id : userId ,
+                    productToAdd : productSelected
+                })
+            }) 
+
+            let response = await request.json()
+            cart.push(response.product)
+            mobileId = response.phoneid
+            console.log(response)
+            dropDialog.disabled = false
+            this.disabled = false
+            this.textContent = 'add'
+            document.querySelector('#productDialog').style.transform = `translateX(100%)`
+            checkout.classList.add('activatedAnchorTag')
+
+        })
+
+        checkout.addEventListener('click', async function () {
+            //send user a message that his or her selection has being received
+            await fetch(`/menu/sendmessage`,{
+                method : 'post',
+                headers : {"content-type" : 'application/json'},
+                body : JSON.stringify({
+                    mobilePhone : userId,
+                    mobileId :mobileId 
+                })
+            })
+
+            //document.querySelector('#openWhatsapp').click()
+
+        })
+
+
+    </script>
+</body>
+</html>
