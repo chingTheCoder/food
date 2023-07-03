@@ -52,7 +52,7 @@ async function checkState (userInput, user, userId) {
         return   {
             messaging_product : "whatsapp",
             to : userId,
-            text : { body : `Tap link to see our menu${'\u261F'}\n\n https://adorable-shift-worm.cyclic.app/menu/${userId}`}
+            text : { body : `Tap link to see our menu${'\u261F'}\n\n https://adorable-shift-worm.cyclic.app/menu/255762992922/menu/${userId}`}
         }
 
     }
@@ -67,7 +67,7 @@ async function checkState (userInput, user, userId) {
         return   {
             messaging_product : "whatsapp",
             to : userId,
-            text : { body : `Tap link to see our menu${'\u261F'}\n\n https://adorable-shift-worm.cyclic.app/menu/${userId}`}
+            text : { body : `Tap link to see our menu${'\u261F'}\n\n https://adorable-shift-worm.cyclic.app/menu/255762992922/menu/${userId}`}
         }
 
     }
