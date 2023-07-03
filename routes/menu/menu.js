@@ -40,13 +40,24 @@ router.post('/addtocart', async (req, res) => {
 
 })
 
-router.post('/sendmessage', (req, res) => {
+router.post('/sendmessage', async (req, res) => {
 
-        let mobile = req.body
+        let { mobilePhone, mobileId } = req.body
         console.log(mobile)
+     
+        await fetch(`https://graph.facebook.com/v12.0/${mobileId}/messages?access_token=${process.env.WHATSAPP_TOKEN}`, {
+            method : 'post',
+            headers : {"content-type" : "application/json"},
+            body : JSON.stringify({
+                messaging_product: "whatsapp",
+                to: mobilePhone,
+                text: { body : 'your selection was received'}
+            })
+        })
         res.status(200)
 
 })
+
 
 
 
