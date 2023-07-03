@@ -1,5 +1,5 @@
 import CyclicDb from "@cyclic.sh/dynamodb"
-const db = CyclicDb("jolly-lime-dolphinCyclicDB")
+const db = CyclicDb("courageous-pear-snapperCyclicDB")
 
 const animals = db.collection("animals")
 

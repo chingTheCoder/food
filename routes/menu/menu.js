@@ -1,7 +1,7 @@
 import express from "express"
 let router = express.Router()
 import CyclicDb  from "@cyclic.sh/dynamodb"
-let db = CyclicDb("jolly-lime-dolphinCyclicDB")
+let db = CyclicDb("courageous-pear-snapperCyclicDB")
 
 
 let users = db.collection('users')
