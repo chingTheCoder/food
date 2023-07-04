@@ -156,6 +156,7 @@
 
     <script>
 
+        let totalProducts
         let productSelected = {}
         let cart = []
         let addButton = document.querySelectorAll('.popProduct')
@@ -165,6 +166,7 @@
         let getUserId = document.documentURI.split('/')
         let userId = getUserId[getUserId.length - 1]
         let mobileId
+        
         
         console.log(addButton)
   
@@ -203,6 +205,7 @@
             let response = await request.json()
             cart.push(response.product)
             mobileId = response.phoneid
+            totalProducts = response.totalProducts
             console.log(response)
             dropDialog.disabled = false
             this.disabled = false
@@ -219,7 +222,8 @@
                 headers : {"content-type" : 'application/json'},
                 body : JSON.stringify({
                     mobilePhone : userId,
-                    mobileId :mobileId 
+                    mobileId :mobileId,
+                    products : totalProducts
                 })
             })
 
