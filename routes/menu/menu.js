@@ -50,7 +50,7 @@ router.post('/sendmessage', async (req, res) => {
         state : 'orderCreated'
     })
 
-    let generatedMessage = 'Your Order includes\n' 
+    let generatedMessage = 'Your Order includes\n\n' 
     let totalPrice = 0
     let two = "\u{0032}\u{FE0F}\u{20E3}"
     let one = "\u{0031}\u{FE0F}\u{20E3}"
@@ -58,14 +58,13 @@ router.post('/sendmessage', async (req, res) => {
 
     for (let x = 0 ; x < products.length; x++) {
 
-        let string = `${x + 1}. ${products[x].productName} @ ${products[x].productPrice}\n\n`
+        let string = `${x + 1}. ${products[x].productName} @ ${products[x].productPrice}\n`
         generatedMessage = generatedMessage + string
         totalPrice = totalPrice + Number(products[x].productPrice)
 
     }
 
-    generatedMessage = generatedMessage + `*Total Price* : ${totalPrice}\n\n
-        type corresponding Number to proceed\n\n${one}. To *SEND* Order\n${two}. To REMOVE an Item from order\n${three}. To CANCEL order
+    generatedMessage = generatedMessage + `*Total Price* : ${totalPrice}\n\nType corresponding Number to proceed\n\n${one}. To *SEND* Order\n${two}. To REMOVE an Item from order\n${three}. To CANCEL order
 
     `
     
