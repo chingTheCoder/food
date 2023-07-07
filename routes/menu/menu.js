@@ -3,7 +3,6 @@ let router = express.Router()
 import CyclicDb  from "@cyclic.sh/dynamodb"
 let db = CyclicDb("courageous-pear-snapperCyclicDB")
 
-
 let users = db.collection('users')
 
 
@@ -95,9 +94,6 @@ router.post('/sendmessage', async (req, res) => {
 
 
 })
-
-
-
 
 
 

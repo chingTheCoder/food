@@ -1,6 +1,7 @@
 import CyclicDb  from "@cyclic.sh/dynamodb"
 let db = CyclicDb("courageous-pear-snapperCyclicDB")
 let users = db.collection('users')
+let orders = db.collection('orders')
 
 async function message (userInput, username, userId, phoneId) {
 
@@ -32,13 +33,13 @@ async function message (userInput, username, userId, phoneId) {
     }
   
     console.log('user is not new')
-    let response = await checkState(userInput, search, userId)
+    let response = await checkState(userInput, search, userId, phoneId, username)
     return response
     
 }
 
 
-async function checkState (userInput, user, userId, phoneId) {
+async function checkState (userInput, user, userId, phoneId, username) {
 
     //the big if
     if (user.props.state == 'nostate') {
@@ -87,12 +88,20 @@ async function checkState (userInput, user, userId, phoneId) {
     //when order has being created
     if (user.props.state == 'orderCreated') {
 
+                orders.set(userId, {
+                    custonername : username,
+                    customerPhoneId : phoneId,
+                    listOfProducts : user.props.productList,
+                    orderState : 'processing',
+                    ttl : Math.floor(Date.now() / 1000) + 10
+                })
+
                 if(userInput == '1') {
                     //save order to the database
                     return {
                         messaging_product : "whatsapp",
                         to : userId,
-                        text : { body : `Your Order has being received you will contacted within 2 hours ${"\uD83D\uDE03"}`}
+                        text : { body : `Your Order has being received you will be contacted within 2 hours ${"\uD83D\uDE03"}`}
 
                     } 
                 }
