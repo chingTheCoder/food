@@ -88,7 +88,7 @@ async function checkState (userInput, user, userId, phoneId, username) {
     //when order has being created
     if (user.props.state == 'orderCreated') {
 
-                orders.set(userId, {
+                await orders.set(userId, {
                     custonername : username,
                     customerPhoneId : phoneId,
                     listOfProducts : user.props.productList,

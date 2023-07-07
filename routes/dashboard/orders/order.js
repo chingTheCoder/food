@@ -6,7 +6,7 @@ let orders = db.collection('orders')
 
 router.get('/get', async (req, res) => {
     let allorder = await orders.list()
-    console.log(orders)
+    console.log(allorder)
     res.json({
         list : allorder
     })
