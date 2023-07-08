@@ -187,7 +187,7 @@ async function checkState (userInput, user, userId, phoneId, username) {
 
     if(user.props.state == 'transaction'){
 
-        await users.set({
+        await users.set(userId,{
             state : 'nostate',
             subState : 'nostate'
         })
