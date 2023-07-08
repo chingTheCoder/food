@@ -90,21 +90,22 @@ async function checkState (userInput, user, userId, phoneId, username) {
 
                 if(userInput == '1') {
                     //save order to the database
-                    let order = await orders.set(userId, {
-                        custonername : username,
-                        customerPhoneId : phoneId,
-                        listOfProducts : user.props.productList,
-                        orderState : 'processing',
-                        ttl : Math.floor(Date.now() / 1000) + 10
+                    // let order = await orders.set(userId, {
+                    //     custonername : username,
+                    //     customerPhoneId : phoneId,
+                    //     listOfProducts : user.props.productList,
+                    //     orderState : 'processing',
+                    //     ttl : Math.floor(Date.now() / 1000) + 10
+                    // })
+
+                    await user.set(userId, {
+                        state : 'checkout'
                     })
 
-                    console.log('your order is')
-                    console.log(order)
-                    console.log('your order is')
                     return {
                         messaging_product : "whatsapp",
                         to : userId,
-                        text : { body : `Your Order has being received you will be contacted within 2 hours ${"\uD83D\uDE03"}`}
+                        text : { body : `Type\n\n${one}. Lipa Sasa ${"\uD83D\uDE03"}\n${two}. Lipa Baadae`}
 
                     } 
                 }
@@ -141,6 +142,58 @@ async function checkState (userInput, user, userId, phoneId, username) {
                     to : userId,
                     text : { body : "Type 1 to send order 2 to remove items and 3 to cancel order"}
                 }
+
+    }
+
+    if(user.props.state == 'checkout'){
+        
+        if (userInput == 1) {
+
+            await users.set(userId, {
+                state : 'transaction'
+            })
+
+            return {
+                messaging_product : "whatsapp",
+                to : userId,
+                text : { body : "Kufanya Malipo Lipia kupitia Namba hizi\n\nTIGO 151515 *ARBYS TIGO*\n\nVODACOM 161616 *ARBYS VODA*\n\nBaada ya Malipo Tutumie Ujumbe wa Muamala Wako"}
+            }
+
+        }
+
+        if (userInput == 2) {
+
+            await users.set(userId, {
+                state : 'pendingtransaction'
+            })
+
+            return {
+                messaging_product : "whatsapp",
+                to : userId,
+                text : { body : "Tutakupigia Ndani Ya Dakika 15"}
+            }
+
+        }
+
+            return {
+                messaging_product : "whatsapp",
+                to : userId,
+                text : { body : "Andika 1 *kulipa Sasa* Au 2 *kulipa Baadaye*"}
+            }
+    }
+
+    if(user.props.state == 'transaction'){
+
+        await users.set({
+            state : 'nostate',
+            subState : 'nostate'
+        })
+
+        return {
+            messaging_product : "whatsapp",
+            to : userId,
+            text : { body : `${"\uD83D\uDE03"} Hongera Order Imekamilika`}
+        }
 
     }
     
