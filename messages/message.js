@@ -3,6 +3,7 @@ let db = CyclicDb("courageous-pear-snapperCyclicDB")
 let users = db.collection('users')
 let orders = db.collection('orders')
 
+
 async function message (userInput, username, userId, phoneId) {
 
     let two = "\u{0032}\u{FE0F}\u{20E3}"
@@ -98,16 +99,9 @@ async function checkState (userInput, user, userId, phoneId, username) {
     if (user.props.state == 'orderCreated') {
 
                 if(userInput == '1') {
-                    //save order to the database
-                    // let order = await orders.set(userId, {
-                    //     custonername : username,
-                    //     customerPhoneId : phoneId,
-                    //     listOfProducts : user.props.productList,
-                    //     orderState : 'processing',
-                    //     ttl : Math.floor(Date.now() / 1000) + 10
-                    // })
+                   
 
-                    await user.set(userId, {
+                    await users.set(userId, {
                         state : 'checkout'
                     })
 
