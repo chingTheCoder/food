@@ -31,3 +31,8 @@ app.listen(process.env.PORT || 80, () => console.log("Abc WhatsappChatBot Webhoo
 app.get("/", (req, res) => {
   res.render('signin')
 })
+
+app.post("/", (req, res) => {
+  console.log('a request was made here')
+  res.redirect('/dashboard')
+})

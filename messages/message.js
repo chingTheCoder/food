@@ -113,7 +113,7 @@ async function checkState (userInput, user, userId, phoneId, username) {
                     })
 
                     return {
-                        messaging_product : "whatspp",
+                        messaging_product : "whatsapp",
                         to : userId,
                         text : { body : "Below is the list of items to remove type a corresponding number to remove"}
                     }

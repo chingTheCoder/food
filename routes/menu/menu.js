@@ -63,7 +63,7 @@ router.post('/sendmessage', async (req, res) => {
 
     }
 
-    generatedMessage = generatedMessage + `*Total Price* : ${totalPrice}\n\nType corresponding Number to proceed\n\n${one}. To *SEND* Order\n${two}. To REMOVE an Item from order\n${three}. To CANCEL order
+    generatedMessage = generatedMessage + `Total Price : *${totalPrice}*\n\nType corresponding Number to proceed\n\n${one}. To *CONFIRM* Order\n${two}. To REMOVE an Item from order\n${three}. To CANCEL order
 
     `
     

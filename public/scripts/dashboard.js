@@ -4,8 +4,16 @@ document.addEventListener("DOMContentLoaded", async function(event){
     let response = await orders.json()
     //remove loading element
     document.querySelector(".loading").remove()
-    console.log(response.results)
-    renderContent(response.results) 
+    let array = response.list.results
+    if(array.length == 0) {
+        document.querySelector(".orderList").innerHTML = `
+            <div class='loading' style="height: 100vh;display: grid;align-items: center;justify-content: center;font-size:25px;">
+                !NO ORDERS
+            </div>
+        `
+        return false
+    }
+    renderContent(array) 
 })
 
 function renderContent (data) {
