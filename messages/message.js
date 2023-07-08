@@ -45,6 +45,11 @@ async function checkState (userInput, user, userId, phoneId, username) {
     let two = "\u{0032}\u{FE0F}\u{20E3}"
     let one = "\u{0031}\u{FE0F}\u{20E3}"
 
+
+    console.log("user state is")
+    console.log(user.props.state)
+    console.log("user state is")
+
     //the big if
     if (user.props.state == 'nostate') {
     //send user to delivery
