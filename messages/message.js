@@ -88,16 +88,19 @@ async function checkState (userInput, user, userId, phoneId, username) {
     //when order has being created
     if (user.props.state == 'orderCreated') {
 
-                await orders.set(userId, {
-                    custonername : username,
-                    customerPhoneId : phoneId,
-                    listOfProducts : user.props.productList,
-                    orderState : 'processing',
-                    ttl : Math.floor(Date.now() / 1000) + 10
-                })
-
                 if(userInput == '1') {
                     //save order to the database
+                    let order = await orders.set(userId, {
+                        custonername : username,
+                        customerPhoneId : phoneId,
+                        listOfProducts : user.props.productList,
+                        orderState : 'processing',
+                        ttl : Math.floor(Date.now() / 1000) + 10
+                    })
+
+                    console.log('your order is')
+                    console.log(order)
+                    console.log('your order is')
                     return {
                         messaging_product : "whatsapp",
                         to : userId,

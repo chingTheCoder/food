@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", async function(event){
     //remove loading element
     document.querySelector(".loading").remove()
     let array = response.list.results
-    if(array.length == 0) {
+    
+    if(array.length < 0) {
         document.querySelector(".orderList").innerHTML = `
             <div class='loading' style="height: 100vh;display: grid;align-items: center;justify-content: center;font-size:25px;">
                 !NO ORDERS
@@ -22,12 +23,13 @@ function renderContent (data) {
 
     for(let x = 0; x < data.length; x++) {
 
+        console.log(data[x].props)
         let childElement = document.createElement('div')
         childElement.innerHTML = 
         childElement.innerHTML = `<div class="flex rounded shadow p-3">
         <div class="w-1/4">${data[x].key}</div>
-        <div class="w-1/4">${data[x].props.custonername}</div>
-        <div class="w-1/4">${ data[x].props.listOfProducts.length }</div>
+        <div class="w-1/4">h</div>
+        <div class="w-1/4">g</div>
         <div class="w-1/4">
             <button class="bg-green-500 rounded text-white px-2">view</button>
         </div>
