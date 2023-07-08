@@ -41,6 +41,10 @@ async function message (userInput, username, userId, phoneId) {
 
 async function checkState (userInput, user, userId, phoneId, username) {
 
+    
+    let two = "\u{0032}\u{FE0F}\u{20E3}"
+    let one = "\u{0031}\u{FE0F}\u{20E3}"
+
     //the big if
     if (user.props.state == 'nostate') {
     //send user to delivery
