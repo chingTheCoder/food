@@ -28,7 +28,7 @@ async function message (userInput, username, userId, phoneId) {
          return {
             messaging_product: "whatsapp",
             to: userId,
-            text: { body : `Hello ${username}\nWelcome to *ARBYS*\nWrite one of the below number for your request\n\n${one} Pickup\n${two} Delivery`}
+            text: { body : `Hello ${username}\nWelcome to *FUN PARIS*\nWrite one of the below number for your request\n\n${one} Pickup\n${two} Delivery`}
           }
 
     }
