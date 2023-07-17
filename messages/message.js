@@ -40,24 +40,32 @@ async function message (userInput, username, userId, phoneId) {
     return {
         messaging_product: "whatsapp",
         recipient_type: "individual",
-        to: userId,
+        to: "PHONE_NUMBER",
         type: "interactive",
-        interactive : {
-          type : "catalog_message",
-          body : {
-            text: "hrllo tester"
+        interactive: {
+          type: "button",
+          body: {
+            text: "BUTTON_TEXT"
           },
           action: {
-            name: "catalog_message",
-            parameters: {
-              thumbnail_product_retailer_id: "1"
-            }
-          },
-
-          footer: {
-            text: "no comment"
-        }
-    }}
+            buttons: [
+              {
+                type: "reply",
+                reply: {
+                  id: "UNIQUE_BUTTON_ID_1",
+                  title: "BUTTON_TITLE_1"
+                }
+              },
+              {
+                type: "reply",
+                reply: {
+                  id: "UNIQUE_BUTTON_ID_2",
+                  title: "BUTTON_TITLE_2"
+                }
+              }
+            ]
+          }
+    }
     
 }
 
