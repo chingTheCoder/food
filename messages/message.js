@@ -40,7 +40,7 @@ async function message (userInput, username, userId, phoneId) {
     return {
         messaging_product: "whatsapp",
         recipient_type: "individual",
-        to: "PHONE_NUMBER",
+        to: userId,
         type: "interactive",
         interactive: {
           type: "button",
