@@ -65,7 +65,7 @@ async function message (userInput, username, userId, phoneId) {
               }
             ]
           }
-    }
+    }}
     
 }
 
