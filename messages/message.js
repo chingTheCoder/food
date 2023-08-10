@@ -6,66 +6,66 @@ let orders = db.collection('orders')
 
 async function message (userInput, username, userId, phoneId) {
 
-    // let two = "\u{0032}\u{FE0F}\u{20E3}"
-    // let one = "\u{0031}\u{FE0F}\u{20E3}"
+    let two = "\u{0032}\u{FE0F}\u{20E3}"
+    let one = "\u{0031}\u{FE0F}\u{20E3}"
     
-    // //search for user if in the database
-    // let search = await users.get(userId)
-    // console.log('search returned below value')
-    // console.log(search)
-    // if(search == null){
-    //     console.log('user is not found in the database so create new user')
-    //     //lets create the new user
-    //     await users.set(userId , {
-    //         phoneID : phoneId,
-    //         state : 'nostate',
-    //         subState : 'nostate',
-    //         orderChoice : '',
-    //         productList : [],
-    //         ttl: Math.floor(Date.now() / 1000) + 3
-    //      })
+    //search for user if in the database
+    let search = await users.get(userId)
+    console.log('search returned below value')
+    console.log(search)
+    if(search == null){
+        console.log('user is not found in the database so create new user')
+        //lets create the new user
+        await users.set(userId , {
+            phoneID : phoneId,
+            state : 'nostate',
+            subState : 'nostate',
+            orderChoice : '',
+            productList : [],
+            ttl: Math.floor(Date.now() / 1000) + 3
+         })
        
-    //      return {
-    //         messaging_product: "whatsapp",
-    //         to: userId,
-    //         text: { body : `Hello ${username}\nWelcome to *FUN PARIS*\nWrite one of the below number for your request\n\n${one} Pickup\n${two} Delivery`}
-    //       }
-
-    // }
-  
-    // console.log('user is not new')
-    // let response = await checkState(userInput, search, userId, phoneId, username)
-    // return response
-
-    return {
-        messaging_product: "whatsapp",
-        recipient_type: "individual",
-        to: userId,
-        type: "interactive",
-        interactive: {
-          type: "button",
-          body: {
-            text: "BUTTON_TEXT"
-          },
-          action: {
-            buttons: [
-              {
-                type: "reply",
-                reply: {
-                  id: "UNIQUE_BUTTON_ID_1",
-                  title: "BUTTON_TITLE_1"
-                }
-              },
-              {
-                type: "reply",
-                reply: {
-                  id: "UNIQUE_BUTTON_ID_2",
-                  title: "BUTTON_TITLE_2"
-                }
-              }
-            ]
+         return {
+            messaging_product: "whatsapp",
+            to: userId,
+            text: { body : `Hello ${username}\nWelcome to *FUN PARIS*\nWrite one of the below number for your request\n\n${one} Pickup\n${two} Delivery`}
           }
-    }}
+
+    }
+  
+    console.log('user is not new')
+    let response = await checkState(userInput, search, userId, phoneId, username)
+    return response
+
+    // return {
+    //     messaging_product: "whatsapp",
+    //     recipient_type: "individual",
+    //     to: userId,
+    //     type: "interactive",
+    //     interactive: {
+    //       type: "button",
+    //       body: {
+    //         text: "BUTTON_TEXT"
+    //       },
+    //       action: {
+    //         buttons: [
+    //           {
+    //             type: "reply",
+    //             reply: {
+    //               id: "UNIQUE_BUTTON_ID_1",
+    //               title: "BUTTON_TITLE_1"
+    //             }
+    //           },
+    //           {
+    //             type: "reply",
+    //             reply: {
+    //               id: "UNIQUE_BUTTON_ID_2",
+    //               title: "BUTTON_TITLE_2"
+    //             }
+    //           }
+    //         ]
+    //       }
+    // }}
     
 }
 
